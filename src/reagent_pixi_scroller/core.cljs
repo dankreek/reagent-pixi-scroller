@@ -4,6 +4,10 @@
 
 (enable-console-print!)
 
+(def Stage (r/adapt-react-class js/ReactPIXI.Stage))
+(def Container (r/adapt-react-class js/ReactPIXI.DisplayObjectContainer))
+(def TilingSprite (r/adapt-react-class js/ReactPIXI.TilingSprite))
+
 (defonce app-state (atom {:text "Hello world!"}))
 
 (defn on-js-reload []
