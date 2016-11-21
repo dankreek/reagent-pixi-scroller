@@ -11,12 +11,13 @@
 (def Container (r/adapt-react-class js/ReactPIXI.DisplayObjectContainer))
 (def TilingSprite (r/adapt-react-class js/ReactPIXI.TilingSprite))
 
-(defonce app-state (atom {:text "Hello world!"}))
+(defonce app-state (atom {:scroll-position 0}))
 
-(defn scroller-layer [image]
+(defn scroller-layer [image rate]
   [TilingSprite {:image image
                  :width width
-                 :height height}])
+                 :height height
+                 :tile-position [(@app-state :scroll-position) 0]}])
 
 (defn scroller []
   [Container
@@ -34,8 +35,19 @@
 (r/render-component [scroller-stage]
                     (. js/document (getElementById "app")))
 
+(defn animation-loop! []
+  (let [cur-counter (:__figwheel_counter @app-state)
+        loop-fn (fn this []
+                  (when (= cur-counter (:__figwheel_counter @app-state))
+                    (js/requestAnimationFrame this)
+                    (swap! app-state update-in [:scroll-position] inc)))]
+    (loop-fn)))
+
+(animation-loop!)
+
 (defn on-js-reload []
   ;; optionally touch your app-state to force rerendering depending on
   ;; your application
-  ;; (swap! app-state update-in [:__figwheel_counter] inc)
-  )
+  (swap! app-state update-in [:__figwheel_counter] inc)
+  (animation-loop!))
+
