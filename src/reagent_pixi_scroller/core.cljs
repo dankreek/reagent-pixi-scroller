@@ -17,15 +17,15 @@
   [TilingSprite {:image image
                  :width width
                  :height height
-                 :tile-position [(@app-state :scroll-position) 0]}])
+                 :tile-position [(* rate (@app-state :scroll-position)) 0]}])
 
 (defn scroller []
   [Container
-   [scroller-layer "layer5.png"]
-   [scroller-layer "layer4.png"]
-   [scroller-layer "layer3.png"]
-   [scroller-layer "layer2.png"]
-   [scroller-layer "layer1.png"]])
+   [scroller-layer "layer5.png" 0.025]
+   [scroller-layer "layer4.png" 0.25]
+   [scroller-layer "layer3.png" 0.5]
+   [scroller-layer "layer2.png" 0.75]
+   [scroller-layer "layer1.png" 1.0]])
 
 (defn scroller-stage []
   [Stage {:width width
