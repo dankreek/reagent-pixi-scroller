@@ -13,9 +13,23 @@
 
 (defonce app-state (atom {:text "Hello world!"}))
 
+(defn scroller-layer [image]
+  [TilingSprite {:image image
+                 :width width
+                 :height height}])
+
+(defn scroller []
+  [Container
+   [scroller-layer "layer5.png"]
+   [scroller-layer "layer4.png"]
+   [scroller-layer "layer3.png"]
+   [scroller-layer "layer2.png"]
+   [scroller-layer "layer1.png"]])
+
 (defn scroller-stage []
   [Stage {:width width
-          :height height}])
+          :height height}
+   [scroller]])
 
 (r/render-component [scroller-stage]
                     (. js/document (getElementById "app")))
