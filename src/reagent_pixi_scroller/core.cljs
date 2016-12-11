@@ -38,8 +38,9 @@
           :height height}
    [scroller]])
 
-(r/render-component [scroller-stage]
-                    (. js/document (getElementById "app")))
+(r/render [scroller-stage]
+
+          (. js/document (getElementById "app")))
 
 (defn on-js-reload []
   ;; optionally touch your app-state to force rerendering depending on
